@@ -50,7 +50,7 @@ jobs:
         run: npm test -- --coverage
 
       - name: 📊 Upload coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-report
           path: coverage/
@@ -113,7 +113,7 @@ jobs:
           docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }} -o image.tar
 
       - name: 📤 Upload image artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: docker-image
           path: image.tar
