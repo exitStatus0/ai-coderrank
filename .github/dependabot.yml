@@ -40,9 +40,13 @@ updates:
         dependency-type: "production"
         exclude-patterns:
           - "next"
-    # Ignore major version bumps for eslint-config-next alone
+    # Ignore breaking major version bumps
     ignore:
       - dependency-name: "eslint-config-next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
         update-types: ["version-update:semver-major"]
 
   # GitHub Actions
