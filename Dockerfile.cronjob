@@ -5,7 +5,7 @@
 # Used by Kubernetes CronJob for daily leaderboard updates
 # =============================================================================
 
-FROM node:20-alpine
+FROM node:25-alpine
 
 WORKDIR /app
 
