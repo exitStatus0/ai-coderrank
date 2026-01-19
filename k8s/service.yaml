@@ -1,0 +1,63 @@
+# =============================================================================
+# Service
+# =============================================================================
+# Exposes the web application within the cluster
+# =============================================================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-coderrank
+  namespace: ai-coderrank
+  labels:
+    app.kubernetes.io/name: ai-coderrank
+    app.kubernetes.io/component: web
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ai-coderrank
+    app.kubernetes.io/component: web
+
+---
+# =============================================================================
+# Ingress (Optional)
+# =============================================================================
+# Uncomment and configure for external access
+# Requires an Ingress Controller (nginx, traefik, etc.)
+# =============================================================================
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ai-coderrank
+#   namespace: ai-coderrank
+#   labels:
+#     app.kubernetes.io/name: ai-coderrank
+#   annotations:
+#     # nginx-specific annotations
+#     # nginx.ingress.kubernetes.io/rewrite-target: /
+#     # cert-manager annotations for TLS
+#     # cert-manager.io/cluster-issuer: letsencrypt-prod
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: coderrank.example.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: ai-coderrank
+#                 port:
+#                   number: 80
+#   # Uncomment for TLS
+#   # tls:
+#   #   - hosts:
+#   #       - coderrank.example.com
+#   #     secretName: ai-coderrank-tls

@@ -1,0 +1,38 @@
+# =============================================================================
+# Kustomization
+# =============================================================================
+# Use Kustomize to manage all resources together
+#
+# Apply: kubectl apply -k k8s/
+# Preview: kubectl kustomize k8s/
+# =============================================================================
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: ai-coderrank
+
+# Common labels applied to all resources
+commonLabels:
+  app.kubernetes.io/name: ai-coderrank
+  app.kubernetes.io/version: "1.0.0"
+  app.kubernetes.io/managed-by: kustomize
+
+# Resources to include
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - cronjob.yaml
+
+# Image customization (update tags here)
+# After CI pushes to GHCR, update these to your actual image
+images:
+  - name: ai-coderrank
+    newName: ghcr.io/exitstatus0/ai-coderrank
+    newTag: latest
+  - name: ai-coderrank-cronjob
+    newName: ghcr.io/exitstatus0/ai-coderrank-cronjob
+    newTag: latest

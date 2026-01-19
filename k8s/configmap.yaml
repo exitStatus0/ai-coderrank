@@ -1,0 +1,26 @@
+# =============================================================================
+# ConfigMap
+# =============================================================================
+# Non-sensitive configuration for the application
+# =============================================================================
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-coderrank-config
+  namespace: ai-coderrank
+  labels:
+    app.kubernetes.io/name: ai-coderrank
+    app.kubernetes.io/component: config
+data:
+  # Application settings
+  NODE_ENV: "production"
+  PORT: "3000"
+  
+  # Data settings
+  DATA_PATH: "/app/data/models.json"
+  USE_MOCK_DATA: "false"
+  
+  # Feature flags (for future use)
+  ENABLE_CACHE: "true"
+  CACHE_TTL_HOURS: "24"

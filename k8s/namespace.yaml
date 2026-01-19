@@ -1,0 +1,13 @@
+# =============================================================================
+# Namespace
+# =============================================================================
+# Isolates AI CoderRank resources from other workloads
+# =============================================================================
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ai-coderrank
+  labels:
+    app.kubernetes.io/name: ai-coderrank
+    app.kubernetes.io/part-of: ai-coderrank

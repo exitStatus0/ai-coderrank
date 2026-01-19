@@ -1,0 +1,26 @@
+# =============================================================================
+# Persistent Volume Claim
+# =============================================================================
+# Shared storage for model data between the web app and cron job
+#
+# Trade-off: PVC vs ConfigMap/Secret vs External Storage
+# - PVC: Simple, works well for small JSON files, shared between pods
+# - ConfigMap: Limited to 1MB, not ideal for frequent updates
+# - External (S3, etc.): Overkill for this use case
+# =============================================================================
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ai-coderrank-data
+  namespace: ai-coderrank
+  labels:
+    app.kubernetes.io/name: ai-coderrank
+    app.kubernetes.io/component: storage
+spec:
+  accessModes:
+    - ReadWriteOnce  # Single node access is sufficient
+  resources:
+    requests:
+      storage: 100Mi  # More than enough for JSON data
+  # storageClassName: standard  # Uncomment and adjust for your cluster

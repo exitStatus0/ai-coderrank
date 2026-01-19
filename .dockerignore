@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Development files
+.env*.local
+.env
+*.env
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Tests
+coverage
+tests
+*.test.ts
+*.test.tsx
+jest.config.js
+jest.setup.js
+
+# Documentation
+README.md
+CHANGELOG.md
+docs
+
+# Kubernetes manifests (not needed in image)
+k8s
+
+# Docker files (prevent recursive copies)
+Dockerfile
+.dockerignore
+docker-compose*.yml

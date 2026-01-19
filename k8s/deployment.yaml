@@ -1,0 +1,107 @@
+# =============================================================================
+# Deployment
+# =============================================================================
+# Main web application deployment
+# =============================================================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-coderrank
+  namespace: ai-coderrank
+  labels:
+    app.kubernetes.io/name: ai-coderrank
+    app.kubernetes.io/component: web
+spec:
+  replicas: 2  # HA: 2 replicas for redundancy
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ai-coderrank
+      app.kubernetes.io/component: web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ai-coderrank
+        app.kubernetes.io/component: web
+    spec:
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      
+      containers:
+        - name: web
+          image: ai-coderrank:latest  # Replace with your registry
+          imagePullPolicy: IfNotPresent
+          
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          
+          # Environment from ConfigMap
+          envFrom:
+            - configMapRef:
+                name: ai-coderrank-config
+          
+          # Resource limits
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          
+          # Probes for health checking
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          
+          # Volume mounts
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          
+          # Security context for container
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false  # Next.js needs to write to .next
+            capabilities:
+              drop:
+                - ALL
+      
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ai-coderrank-data
+      
+      # Spread pods across nodes for HA
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: ai-coderrank

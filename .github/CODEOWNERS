@@ -1,0 +1,17 @@
+# =============================================================================
+# CODEOWNERS
+# =============================================================================
+# These owners will be requested for review when someone opens a PR
+# =============================================================================
+
+# Default owner for everything
+* @exitStatus0
+
+# Kubernetes manifests
+/k8s/ @exitStatus0
+
+# CI/CD workflows
+/.github/ @exitStatus0
+
+# Docker files
+/Dockerfile* @exitStatus0
