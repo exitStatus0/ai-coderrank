@@ -19,13 +19,31 @@ updates:
     commit-message:
       prefix: "deps(npm):"
     groups:
+      # Group Next.js related packages together (must be updated in sync)
+      nextjs:
+        patterns:
+          - "next"
+          - "eslint-config-next"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
       development:
         dependency-type: "development"
+        exclude-patterns:
+          - "next"
+          - "eslint-config-next"
         update-types:
           - "minor"
           - "patch"
       production:
         dependency-type: "production"
+        exclude-patterns:
+          - "next"
+    # Ignore major version bumps for eslint-config-next alone
+    ignore:
+      - dependency-name: "eslint-config-next"
+        update-types: ["version-update:semver-major"]
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
