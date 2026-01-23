@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Orbitron, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const orbitron = Orbitron({
   subsets: ['latin'],
@@ -31,16 +32,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Get theme from environment variable
-  const theme = process.env.THEME || 'dark';
-  
   return (
     <html 
       lang="en" 
       className={`${orbitron.variable} ${jetbrainsMono.variable}`}
-      data-theme={theme}
+      data-theme="dark"
     >
       <body className="antialiased">
+        <ThemeProvider />
         {children}
       </body>
     </html>
