@@ -27,4 +27,4 @@ data:
   
   # UI Theme (for GitOps demo)
   # Options: "dark" or "light"
-  THEME: "light"
+  THEME: "dark"
