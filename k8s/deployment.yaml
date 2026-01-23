@@ -43,7 +43,7 @@ spec:
       containers:
         - name: web
           image: ai-coderrank:latest  # Replace with your registry
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           
           ports:
             - name: http

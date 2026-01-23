@@ -56,7 +56,7 @@ spec:
           containers:
             - name: updater
               image: ai-coderrank-cronjob:latest  # Replace with your registry
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               
               # Command to run the update script
               command:
