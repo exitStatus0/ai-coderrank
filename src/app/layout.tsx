@@ -31,8 +31,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Get theme from environment variable
+  const theme = process.env.THEME || 'dark';
+  
   return (
-    <html lang="en" className={`${orbitron.variable} ${jetbrainsMono.variable}`}>
+    <html 
+      lang="en" 
+      className={`${orbitron.variable} ${jetbrainsMono.variable}`}
+      data-theme={theme}
+    >
       <body className="antialiased">
         {children}
       </body>

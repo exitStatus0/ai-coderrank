@@ -24,3 +24,7 @@ data:
   # Feature flags (for future use)
   ENABLE_CACHE: "true"
   CACHE_TTL_HOURS: "24"
+  
+  # UI Theme (for GitOps demo)
+  # Options: "dark" or "light"
+  THEME: "dark"

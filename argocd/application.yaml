@@ -1,0 +1,58 @@
+# =============================================================================
+# ArgoCD Application for AI CoderRank
+# =============================================================================
+# This defines the application in ArgoCD for GitOps deployment
+#
+# Apply: kubectl apply -f argocd/application.yaml
+# =============================================================================
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ai-coderrank
+  namespace: argocd
+  # Finalizer ensures cascade delete of all resources
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  # Project (use 'default' or create a custom project)
+  project: default
+  
+  # Source repository
+  source:
+    repoURL: https://github.com/exitStatus0/ai-coderrank.git
+    targetRevision: main  # or 'HEAD' for latest
+    path: k8s
+  
+  # Destination cluster
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ai-coderrank
+  
+  # Sync policy
+  syncPolicy:
+    # Create namespace if it doesn't exist
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    
+    # Auto-sync configuration (for GitOps demo)
+    automated:
+      prune: true      # Delete resources not in Git
+      selfHeal: true   # Sync if cluster state differs from Git
+      allowEmpty: false
+    
+    # Retry configuration
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Health check overrides (optional)
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas  # Ignore replica count for HPA

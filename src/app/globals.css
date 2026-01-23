@@ -4,6 +4,7 @@
 
 /* CSS Variables for theming */
 :root {
+  /* Dark theme (default) */
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-card: #1a1a25;
@@ -26,6 +27,27 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
+/* Light theme */
+:root[data-theme="light"] {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f1f3f5;
+  
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #868e96;
+  
+  --accent-cyan: #0891b2;
+  --accent-purple: #9333ea;
+  --accent-pink: #db2777;
+  --accent-green: #16a34a;
+  --accent-orange: #ea580c;
+  
+  --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+  --gradient-card: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
+}
+
 /* Base styles */
 * {
   box-sizing: border-box;
@@ -46,7 +68,7 @@ body {
   min-height: 100vh;
 }
 
-/* Background pattern */
+/* Background pattern - Dark theme */
 body::before {
   content: '';
   position: fixed;
@@ -60,6 +82,14 @@ body::before {
     radial-gradient(circle at 50% 50%, rgba(255, 45, 122, 0.05) 0%, transparent 70%);
   pointer-events: none;
   z-index: -1;
+}
+
+/* Background pattern - Light theme */
+:root[data-theme="light"] body::before {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(8, 145, 178, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(219, 39, 119, 0.04) 0%, transparent 70%);
 }
 
 /* Grid background pattern */
@@ -76,6 +106,13 @@ body::after {
   background-size: 50px 50px;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Grid background pattern - Light theme */
+:root[data-theme="light"] body::after {
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
 }
 
 /* Custom scrollbar */
@@ -108,6 +145,17 @@ body::after {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
+  }
+  
+  /* Light theme glass card */
+  :root[data-theme="light"] .glass-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(248, 249, 250, 0.98) 100%
+    );
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
   
   .glow-border {
