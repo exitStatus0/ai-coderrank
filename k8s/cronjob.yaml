@@ -49,6 +49,10 @@ spec:
             runAsGroup: 1001
             fsGroup: 1001
           
+          # Image pull secrets for GHCR (uncomment if using private images)
+          # imagePullSecrets:
+          #   - name: ghcr-secret
+
           containers:
             - name: updater
               image: ai-coderrank-cronjob:latest  # Replace with your registry
