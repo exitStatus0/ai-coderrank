@@ -5,6 +5,18 @@
 
 ---
 
+## Screenshots
+
+| Dashboard | Arena Scores |
+|:---------:|:------------:|
+| ![Dashboard](docs/images/ai-coderrank-main.png) | ![Arena Scores](docs/images/ai-coderrank-score.png) |
+
+| API Price Comparison | Subscription Plans |
+|:--------------------:|:------------------:|
+| ![API Price Comparison](docs/images/ai-coderrank-api-price.png) | ![Subscription Plans](docs/images/ai-coderrank-subscriptions.png) |
+
+---
+
 ## Quick Start
 
 ```bash
