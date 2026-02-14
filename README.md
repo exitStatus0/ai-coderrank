@@ -1,9 +1,6 @@
 # AI CoderRank
 
 > Top 10 AI coding models ranked by [LMArena](https://lmarena.ai/leaderboard) score with pricing comparison.
-
-![Dashboard Preview](docs/preview.png)
-
 **Stack:** Next.js 14 &bull; React &bull; Recharts &bull; Tailwind CSS &bull; Kubernetes &bull; ArgoCD
 
 ---
