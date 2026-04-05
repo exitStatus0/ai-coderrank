@@ -97,7 +97,7 @@ jobs:
 
       - name: 🏗️ Build Docker image
         id: build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -211,7 +211,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚀 Build and Push to GHCR
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -271,7 +271,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚀 Build and Push CronJob image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile.cronjob
